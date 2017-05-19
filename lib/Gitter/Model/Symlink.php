@@ -11,45 +11,7 @@
 
 namespace Gitter\Model;
 
-class Symlink extends AbstractModel
+class Symlink extends File
 {
-    protected $mode;
-    protected $name;
-    protected $path;
 
-    public function getMode()
-    {
-        return $this->mode;
-    }
-
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
 }

@@ -15,10 +15,6 @@ use Gitter\Repository;
 
 class Blob extends Object
 {
-    protected $mode;
-    protected $name;
-    protected $size;
-
     public function __construct($hash, Repository $repository)
     {
         $this->setHash($hash);
@@ -30,42 +26,6 @@ class Blob extends Object
         $data = $this->getRepository()->getClient()->run($this->getRepository(), 'show ' . $this->getHash());
 
         return $data;
-    }
-
-    public function getMode()
-    {
-        return $this->mode;
-    }
-
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
     }
 
     public function isBlob()

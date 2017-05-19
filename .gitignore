@@ -3,5 +3,10 @@ vendor/
 .DS_Store
 .Spotlight-V100
 .Trashes
-.idea
+
 phpunit.xml
+
+
+.idea/workspace.xml
+.idea/tasks.xml
+

@@ -12,18 +12,32 @@
 namespace Gitter\Model;
 
 use Gitter\Repository;
+use function Stringy\create;
+use Stringy\Stringy as S;
 
 class Tree extends Object implements \RecursiveIterator
 {
-    protected $mode;
-    protected $name;
     protected $data;
     protected $position = 0;
+    private $submodules = null;
 
     public function __construct($hash, Repository $repository)
     {
         $this->setHash($hash);
         $this->setRepository($repository);
+    }
+
+    private function getSubmodules($files, $hash) {
+        if ($this->submodules === null) {
+            foreach ($files as $file) {
+                if ($file[4] === '.gitmodules') {
+                    $branch = $hash;
+                    $gitsubmodule = $this->getRepository()->getBlob("$branch:\"$file[4]\"")->output();
+                    $this->submodules = parse_ini_string($gitsubmodule, true);
+                }
+            }
+        }
+        return $this->submodules;
     }
 
     public function parse()
@@ -38,13 +52,28 @@ class Tree extends Object implements \RecursiveIterator
                 unset($lines[$key]);
                 continue;
             }
-
             $files[] = preg_split("/[\s]+/", $line, 5);
         }
 
         foreach ($files as $file) {
-            if ($file[1] == 'commit') {
-                // submodule
+            // submodule
+            if ($file[0] == '160000') {
+                $submodules = $this->getSubmodules($files, $this->getHash());
+                $shortHash = $this->getRepository()->getShortHash($file[2]);
+                $tree = new Module;
+                $tree->setMode($file[0]);
+                $tree->setName($file[4]);
+                $tree->setHash($file[2]);
+                $tree->setShortHash($shortHash);
+                $url = $submodules["submodule $file[4]"]['url'];
+                if (preg_match('/^https?:\/\/(www\.)?github.com\//i', $url)) {
+                    $s = S::create($url);
+                    if ($s->endsWith('.git')) {
+                        $url = substr($url, 0, strlen($url) - 4);
+                    }
+                }
+                $tree->setUrl($url);
+                $root[] = $tree;
                 continue;
             }
 
@@ -101,6 +130,19 @@ class Tree extends Object implements \RecursiveIterator
                 continue;
             }
 
+            if ($node instanceof Module) {
+
+                $folder['type'] = 'module';
+                $folder['name'] = $node->getName();
+                $folder['size'] = '';
+                $folder['mode'] = $node->getMode();
+                $folder['hash'] = $node->getHash();
+                $folder['shortHash'] = $node->getShortHash();
+                $folder['url'] = $node->getUrl();
+                $folders[] = $folder;
+                continue;
+            }
+
             if ($node instanceof Symlink) {
                 $folder['type'] = 'symlink';
                 $folder['name'] = $node->getName();
@@ -151,30 +193,6 @@ class Tree extends Object implements \RecursiveIterator
     public function key()
     {
         return $this->position;
-    }
-
-    public function getMode()
-    {
-        return $this->mode;
-    }
-
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function isTree()

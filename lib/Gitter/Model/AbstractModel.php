@@ -11,16 +11,18 @@
 
 namespace Gitter\Model;
 
+use Gitter\Repository;
+
 abstract class AbstractModel
 {
     protected $repository;
 
-    public function getRepository()
+    public function getRepository() : Repository
     {
         return $this->repository;
     }
 
-    public function setRepository($repository)
+    public function setRepository(Repository $repository)
     {
         $this->repository = $repository;
 

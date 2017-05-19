@@ -11,9 +11,8 @@
 
 namespace Gitter\Model;
 
-class Object extends AbstractModel
+class Object extends File
 {
-    protected $hash;
 
     public function isBlob()
     {
@@ -35,15 +34,5 @@ class Object extends AbstractModel
         return false;
     }
 
-    public function getHash()
-    {
-        return $this->hash;
-    }
 
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-
-        return $this;
-    }
 }

@@ -66,7 +66,15 @@ class Client
             $command = '-c "color.ui"=false ' . $command;
         }
 
-        $process = new Process($this->getPath() . ' ' . $command, $repository->getPath());
+        $command = $this->getPath() . ' ' . $command;
+
+//        echo $command;
+//        echo "<br/>";
+//        echo $repository->getPath();
+//        echo "<br/>";
+//        echo "<br/>";
+
+        $process = new Process($command, $repository->getPath());
         $process->setTimeout(180);
         $process->run();
 

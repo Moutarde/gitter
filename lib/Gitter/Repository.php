@@ -680,4 +680,9 @@ class Repository
 
         return $format->parse($output);
     }
+
+    public function getShortHash($commit) {
+        $shortHash = $this->getClient()->run($this, 'rev-parse  --short ' . $commit);
+        return $shortHash;
+    }
 }

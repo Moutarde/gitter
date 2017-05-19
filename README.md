@@ -1,5 +1,5 @@
 # Gitter
-[![Build Status](https://secure.travis-ci.org/klaussilveira/gitter.png)](http://travis-ci.org/klaussilveira/gitter)
+[![Build Status](https://secure.travis-ci.org/patrikx3/gitter.png)](http://travis-ci.org/patrikx3/gitter)
 
 Gitter allows you to interact in an object oriented manner with Git repositories
 via PHP. The main goal of the library is not to replace the system `git` command,
@@ -8,15 +8,12 @@ but provide a coherent, stable and performatic object oriented interface.
 Most commands are sent to the system's `git` command, parsed and then interpreted
 by Gitter. Everything is transparent to you, so you don't have to worry about a thing. 
 
+## Releases
+[Versions here](versions.md)
+
 ## Requirements
 
 * git (http://git-scm.com) (tested with 1.7.5.4)
-
-## Authors and contributors
-* [Klaus Silveira](http://www.klaussilveira.com) (Creator, developer)
-
-## License
-[New BSD license](http://www.opensource.org/licenses/bsd-license.php)
 
 ## Usage
 
