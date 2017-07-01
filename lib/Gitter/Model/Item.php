@@ -11,7 +11,7 @@
 
 namespace Gitter\Model;
 
-class Object extends File
+class Item extends File
 {
 
     public function isBlob()

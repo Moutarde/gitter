@@ -15,7 +15,7 @@ use Gitter\Repository;
 use function Stringy\create;
 use Stringy\Stringy as S;
 
-class Tree extends Object implements \RecursiveIterator
+class Tree extends Item implements \RecursiveIterator
 {
     protected $data;
     protected $position = 0;

@@ -11,10 +11,10 @@
 
 namespace Gitter\Model\Commit;
 
-use Gitter\Model\Object;
+use Gitter\Model\Item;
 use Gitter\Util\DateTime;
 
-class Commit extends Object
+class Commit extends Item
 {
     protected $shortHash;
     protected $treeHash;
