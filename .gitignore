@@ -1,7 +1,5 @@
 build/
 vendor/
 .DS_Store
-.Spotlight-V100
-.Trashes
 .idea/workspace.xml
 .idea/tasks.xml

@@ -2,16 +2,16 @@
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <filter>
         <whitelist>
-            <directory suffix=".php">./src/</directory>
+            <directory suffix=".php">./lib/</directory>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="build/phpunit" title="patrikx3/resume-web" charset="UTF-8" />
+        <log type="coverage-html" target="build/phpunit" title="patrikx3/gitter" charset="UTF-8" />
         <log type="coverage-text" target="php://stdout" />
         <log type="coverage-clover" target="build/coverage.xml" />
     </logging>
     <testsuites>
-        <testsuite name="patrikx3/gitlist">
+        <testsuite name="patrikx3/gitter">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
