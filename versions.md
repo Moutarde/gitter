@@ -1,3 +1,6 @@
+# v0.3.5
+* Fixed PHPUNIT
+
 # v0.3.4
 * Different submodule links for Gitlist and Github
 
