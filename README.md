@@ -1,7 +1,7 @@
 # Gitter
 [![Build Status](https://secure.travis-ci.org/patrikx3/gitter.png)](http://travis-ci.org/patrikx3/gitter)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/patrikx3/gitter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/patrikx3/resume-web/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/patrikx3/gitter/badges/coverage.png?b=master)]
+![Code Coverage](https://scrutinizer-ci.com/g/patrikx3/gitter/badges/coverage.png?b=master)
 
 
 This is Klaus Silveira's fork, since he doesn't work on this project anymore.  
