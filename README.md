@@ -17,6 +17,9 @@ by Gitter. Everything is transparent to you, so you don't have to worry about a 
 
 ## Releases
 
+### v1.0.0
+* The minimum PHP version is 7.1
+
 ### v0.3.5
 * Fixed PHPUNIT
 
