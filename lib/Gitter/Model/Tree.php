@@ -36,6 +36,24 @@ class Tree extends Item implements \RecursiveIterator
                     $this->submodules = parse_ini_string($gitsubmodule, true);
                 }
             }
+
+            if ($this->submodules === null && strpos($hash, ':') !== false) {
+                // Search in root folder
+                $data = $this->getRepository()->getClient()->run($this->getRepository(), 'ls-tree -lz ' . explode(':', $hash)[0]);
+                $lines = explode("\0", $data);
+                $rootFolderFiles = array();
+                $root = array();
+
+                foreach ($lines as $key => $line) {
+                    if (empty($line)) {
+                        unset($lines[$key]);
+                        continue;
+                    }
+                    $rootFolderFiles[] = preg_split("/[\s]+/", $line, 5);
+                }
+
+                $this->submodules = $this->getSubmodules($rootFolderFiles, explode(':', $hash)[0]);
+            }
         }
         return $this->submodules;
     }
@@ -59,13 +77,20 @@ class Tree extends Item implements \RecursiveIterator
             // submodule
             if ($file[0] == '160000') {
                 $submodules = $this->getSubmodules($files, $this->getHash());
+                if (strpos($this->getHash(), ':') === false) {
+                    $submoduleName = $file[4];
+                }
+                else {
+                    $submoduleName = str_replace('"', '', explode(':', $this->getHash())[1]) . "$file[4]";
+                }
+                
                 $shortHash = $this->getRepository()->getShortHash($file[2]);
                 $tree = new Module;
                 $tree->setMode($file[0]);
                 $tree->setName($file[4]);
                 $tree->setHash($file[2]);
                 $tree->setShortHash($shortHash);
-                $url = $submodules["submodule $file[4]"]['url'];
+                $url = $submodules["submodule $submoduleName"]['url'];
                 if (preg_match('/^https?:\/\/(www\.)?github.com\//i', $url)) {
                     $s = S::create($url);
                     if ($s->endsWith('.git')) {
